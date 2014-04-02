@@ -1,4 +1,4 @@
-var points = [];
+var curve = new Bezier();
 var selected = null;
 var dragged = false;
 
@@ -21,17 +21,17 @@ function onMouseClick(e){
 
     var p = getMousePos(e);
     var addPoint = true;
-    for(var i in points){
-        if(points[i].equal(p)){
-            points[i].active = true;
+    for(var i in curve.cPoints){
+        if(curve.cPoints[i].equal(p)){
+            curve.cPoints[i].active = true;
             addPoint = false;
         }else{
-            points[i].active = false;
+            curve.cPoints[i].active = false;
         }
     }    
     if(addPoint){
         p.active = true; 
-        points.push(p)
+        curve.cPoints.push(p)
     };
     redraw();
     
@@ -39,16 +39,8 @@ function onMouseClick(e){
 
 function onMouseDown(e){
     dragged = true;
-    //console.log('mousedown')
     var pos = getMousePos(e);
-    for(var i in points){
-        if(points[i].equal(pos)){
-            points[i].active = true;
-            selected = points[i];
-        }else{
-            points[i].active = false;
-        }
-    }
+    selected = curve.updateActivePoint(pos);
 }
 
 function onMouseMove(e){
@@ -67,13 +59,10 @@ function onMouseUp(e){
 
 function redraw(){
     ctx.clear("#FFF");
-    for(var i in points){
-        points[i].draw(ctx);
-    }
+    curve.draw(ctx,10);
 }
 
 ctx.clear = function(fillColor) {
     ctx.fillStyle = fillColor;
-    console.log(rect);
     ctx.fillRect(0,0,rect.width, rect.height);
 };

@@ -1,6 +1,7 @@
 //point class
 
 POINT_RADIUS = 8;
+TOLERANCE = 5;
 
 function Point(x,y){
     this.x = x;
@@ -15,11 +16,13 @@ Point.prototype.draw = function(ctx){
     ctx.stroke();
 
     if(this.active){
-        ctx.fillStyle = 'black';
-        ctx.fill();
+        ctx.fillStyle = 'black';  
+    }else{
+        ctx.fillStyle = 'white';
     }
+    ctx.fill();
 }
 
 Point.prototype.equal = function(pt){
-    return Math.abs(this.x - pt.x) < POINT_RADIUS && Math.abs(this.y - pt.y) < POINT_RADIUS;
+    return Math.abs(this.x - pt.x) < POINT_RADIUS + TOLERANCE && Math.abs(this.y - pt.y) < POINT_RADIUS + TOLERANCE;
 }
