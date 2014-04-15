@@ -1,3 +1,3 @@
 Bezier
 ======
-Intro to Objected Oriented JS and Canvas.
+Intro to Object Oriented JS and Canvas.
